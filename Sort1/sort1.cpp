@@ -100,8 +100,8 @@ int compare(const void *arg1, const void *arg2)
 	else return -1;
 }
 // 입력타입 선택
-void selectInputType(int input, int list[], int n) {
-	int i;
+int selectInputType(int input, int list[]) {
+	int i, n;
 
 	if (input == 0) {
 		FILE *fp;
@@ -131,6 +131,7 @@ void selectInputType(int input, int list[], int n) {
 	}
 	// 입력버퍼 비우기
 	getchar();
+	return n;
 }
 // 정렬타입 선택
 void selectSortType(char input, int list[], int n) {
@@ -192,37 +193,7 @@ void main()
 	printf("파일에서 입력받으려면 0, 표준입력을 이용하려면 1을 입력해 주세요.\n");
 	printf("입력 : ");
 	scanf("%d", &input1);
-
-	int i;
-	if (input1 == 0) {
-		FILE *fp;
-		fp = fopen("datafile.txt", "r");
-		if (fp == NULL)
-		{
-			printf("File open에 오류 발생\n");
-			exit(1);
-		}
-		fscanf(fp, "%d\n", &n);
-		for (i = 0; i < n; i++) {
-			fscanf(fp, "%d\n", &list[i]);
-		}
-	}
-	else if (input1 == 1) {
-		printf("데이터 갯수 : ");
-		scanf("%d", &n);
-		printf("\n");
-		for (i = 0; i < n; i++) {
-			printf("데이터 입력 : ");
-			scanf("%d", &list[i]);
-		}
-	}
-	else {
-		printf("잘못 입력하셨습니다. 0 또는 1을 입력해 주세요.\n");
-		exit(0);
-	}
-	// 입력버퍼 비우기
-	getchar();
-
+	n = selectInputType(input1, list);
 	printf("\n");
 	// 정렬선택
 	printf("s: 선택정렬, i: 삽입정렬, b: 버블정렬, h: 쉘정렬, m: 합병정렬, q: 퀵 정렬\n");
